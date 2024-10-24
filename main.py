@@ -101,9 +101,10 @@ elif page == "Search Reviews":
 
         # Total number of reviews
         total_reviews = len(positive_reviews) + len(neutral_reviews) + len(negative_reviews)
+        colors = ['green', 'blue', 'red']
 
         # Create the donut chart with total reviews in the center
-        fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.5)])
+        fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.5,marker=dict(colors=colors))])
         fig.update_traces(textinfo='percent+label')
         
         # Add total reviews annotation in the center
