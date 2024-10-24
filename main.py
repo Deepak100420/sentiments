@@ -1,6 +1,7 @@
 import streamlit as st
 from pymongo import MongoClient
 from datetime import datetime
+import pytz
 import requests
 import plotly.graph_objects as go
 # MongoDB connection setup
@@ -11,6 +12,8 @@ collection = db["classified_reviews"]  # Collection name
 # Hugging Face API setup
 API_URL = "https://api-inference.huggingface.co/models/lxyuan/distilbert-base-multilingual-cased-sentiments-student"
 headers = {"Authorization": "Bearer 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"}
+
+ist = pytz.timezone('Asia/Kolkata')
 
 # Function to query Hugging Face API for sentiment analysis
 def query_review_sentiment(review_text):
@@ -46,7 +49,7 @@ if page == "Submit a Review":
             review_data = {
                 "Reviewer_Name": name,
                 "Review_Text": review,
-                "Date_and_Time": datetime.now(),  # Store current date/time for the review
+                "Date_and_Time": datetime.now(ist),  # Store current date/time for the review
                 "Sentiment_Label": sentiment_label  # Store sentiment label
             }
             # Insert the document into MongoDB
